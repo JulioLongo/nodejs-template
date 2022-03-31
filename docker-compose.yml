@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  database_x:
+    image: postgres
+    container_name: database_x
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    volumes:
+      - pgdata:/data/postgres
+    ports:
+      - 5432:5432
+
+  app_x:
+    build: .
+    container_name: app_x
+    volumes:
+      - .:/usr/app
+    ports:
+      - 3333:3333
+      - 9229:9229
+
+volumes:
+  pgdata:
+    driver: local
